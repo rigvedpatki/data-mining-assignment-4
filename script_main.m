@@ -8,9 +8,9 @@
 
 clc; clear ; close all;
 %% Reading dataset from ./data and visualising the dataset
-% File path to the dataset expample1.dat
+% File path to the dataset expample1.dat or expample2.dat
 
-dataset_path = fullfile('.','data','example1.dat');
+dataset_path = fullfile('.','data','example2.dat');
 %% 
 % Reading the csv data from the file path
 
@@ -74,14 +74,6 @@ plot(sort(eigenvalues));
 % Calculating optimal value of k
 
 [~,k] = max(eig_gaps);
-
-% OR
-
-%threshold = 0.05;
-%k = 1;
-%while eig_gaps(k) < threshold
-%    k = k + 1;
-%end
 %% 
 % Constructing Matrix X by stacking eigen values
 
@@ -111,23 +103,24 @@ for i=1:size(Idx,1)
     cluster = Idx(i,1);
     highlight(p,i,'NodeColor',cmap(cluster,:));
 end
-%% Find communities using the Fiedler Vector*
+%% Find communities using the Fiedler Vector
 % Display sparsity pattern
 
 figure('Name', 'Sparsity Pattern');
 spy(A);
 %% 
-% Construct Laplacian matrix
+% Construct laplacian matrix
 
-new_L = Di - A;
+H = simplify(G);
+new_L = laplacian(H);
 %% 
 % Get eigenvalues from laplacian matrix
 
-[w,new_X] = eig(new_L);
+[v,new_D] = eigs(new_L,k,'smallestreal');
 %% 
 % Construct Fiedler Vector
 
-fv = w(:,2);
+fv = v(:,2);
 %% 
 % Plot the sorted Fiedler vector
 
