@@ -73,7 +73,7 @@ plot(sort(eigenvalues));
 %% 
 % Calculating optimal value of k
 
-[~,k] = max(eig_gaps);
+[~,k]=min(diff(flipud(sort(eigenvalues))))
 %% 
 % Constructing Matrix X by stacking eigen values
 
