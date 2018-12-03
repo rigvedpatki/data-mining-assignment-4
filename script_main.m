@@ -10,7 +10,7 @@ clc; clear ; close all;
 %% Reading dataset from ./data and visualising the dataset
 % File path to the dataset expample1.dat or expample2.dat
 
-dataset_path = fullfile('.','data','example2.dat');
+dataset_path = fullfile('.','data','example1.dat');
 %% 
 % Reading the csv data from the file path
 
@@ -68,12 +68,16 @@ eig_gaps = -1*diff(eigenvalues);
 % Plot Eignevalues of sorted normalized of Laplacian matrix 
 
 figure('Name', 'Eignevalues of sorted normalized of Laplacian matrix ');
-plot(sort(eigenvalues)); 
-% plotting the eignevalues (ascending order) and normalized (unit “length”) eigenvectors of L
+plot(sort(eigenvalues)); % plotting the eignevalues (ascending order) and normalized (unit “length”) eigenvectors of L
 %% 
 % Calculating optimal value of k
 
-[~,k]=min(diff(flipud(sort(eigenvalues))))
+array_k = diff(flipud(sort(eigenvalues)));
+figure('Name', 'Plotting for k ');
+plot(array_k);
+[w,k]=min(array_k)
+figure('Name', 'Plotting for k ');
+plot(diff(flipud(sort(eigenvalues))));
 %% 
 % Constructing Matrix X by stacking eigen values
 
@@ -103,7 +107,7 @@ for i=1:size(Idx,1)
     cluster = Idx(i,1);
     highlight(p,i,'NodeColor',cmap(cluster,:));
 end
-%% Find communities using the Fiedler Vector
+%% *Find communities using the Fiedler Vector*
 % Display sparsity pattern
 
 figure('Name', 'Sparsity Pattern');
