@@ -76,8 +76,6 @@ array_k = diff(flipud(sort(eigenvalues)));
 figure('Name', 'Plotting for k ');
 plot(array_k);
 [w,k]=min(array_k)
-figure('Name', 'Plotting for k ');
-plot(diff(flipud(sort(eigenvalues))));
 %% 
 % Constructing Matrix X by stacking eigen values
 
